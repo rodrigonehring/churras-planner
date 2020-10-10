@@ -1,0 +1,63 @@
+# https://serverless.com/framework/docs/
+service: churras-planner
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: sa-east-1
+  stage: prod
+  memorySize: 256
+  timeout: 29
+  versionFunctions: false
+  # iamRoleStatements:
+  #   - Effect: Allow
+  #     Action:
+  #       - dynamodb:GetItem
+  #       - dynamodb:Scan
+  #       - dynamodb:PutItem
+  #       - dynamodb:Query
+  #       - dynamodb:DescribeTable
+  #       - dynamodb:UpdateItem
+  #       - dynamodb:BatchWriteItem
+  #     Resource:
+  #       - "arn:aws:dynamodb:us-west-2:*:table/Stores"
+  #       - "arn:aws:dynamodb:us-west-2:*:table/Widget"
+  #   - Effect: Allow
+  #     Action:
+  #       - es:*
+  #     Resource:
+  #       - "*"
+  #   - Effect: Allow
+  #     Action:
+  #       - s3:GetObject
+  #     Resource:
+  #       - "arn:aws:s3:::ondecomprar.app/*"
+
+custom:
+  cors:
+    origin: '*'
+    headers:
+      - Content-Type
+      - X-Amz-Date
+      - Authorization
+      - X-Api-Key
+      - X-Amz-Security-Token
+      - X-Amz-User-Agent
+      - Access-Control-Allow-Headers
+    allowCredentials: false
+
+functions:
+  app:
+    memorySize: 256
+    description: Main function handler
+    handler: src/app.main
+    events:
+      - http:
+          path: /{origin}/{proxy+}
+          method: any
+      - http:
+          path: /{origin}
+          method: any
