@@ -1,3 +1,7 @@
+### useful links
+
+- http://churras-planner.s3-website-sa-east-1.amazonaws.com/login
+
 ## DynamoDB Single Table Entities
 
 ### User account
@@ -23,19 +27,11 @@
   description: string
   obs: string
 
-  guests: number // somar/subtrair ao adicionar/remover da lista
-}
-```
+  suggestedPayment: 10
+  suggestedPaymentDrink: 20
 
-### Event Guest
-
-```
-{
-  hashkey: username
-  sortkey: guest-DateISO-hash
-
-  name
-  paid: number
-  drink: boolean
+  guests: [
+    { id: 'hash', name: string, willDrink: true, paid }
+  ]
 }
 ```

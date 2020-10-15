@@ -12,22 +12,14 @@ provider:
   memorySize: 256
   timeout: 29
   versionFunctions: false
-  # iamRoleStatements:
-  #   - Effect: Allow
-  #     Action:
-  #       - dynamodb:GetItem
-  #       - dynamodb:Scan
-  #       - dynamodb:PutItem
-  #       - dynamodb:Query
-  #       - dynamodb:DescribeTable
-  #       - dynamodb:UpdateItem
-  #       - dynamodb:BatchWriteItem
-  #     Resource:
-  #       - "arn:aws:dynamodb:us-west-2:*:table/Stores"
-  #       - "arn:aws:dynamodb:us-west-2:*:table/Widget"
-  #   - Effect: Allow
-  #     Action:
-  #       - es:*
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:Query
+      Resource:
+        - 'arn:aws:dynamodb:sa-east-1:*:table/ChurrasPlanner'
   #     Resource:
   #       - "*"
   #   - Effect: Allow
@@ -58,6 +50,8 @@ functions:
       - http:
           path: /{origin}/{proxy+}
           method: any
+          cors: ${self:custom.cors}
       - http:
           path: /{origin}
           method: any
+          cors: ${self:custom.cors}

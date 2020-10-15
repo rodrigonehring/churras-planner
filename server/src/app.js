@@ -7,6 +7,7 @@ const serverless = require('serverless-http')
 const dynamodb = require('./dynamodb')
 const app = express()
 
+// @logs https://sa-east-1.console.aws.amazon.com/cloudwatch/home?region=sa-east-1#logsV2:log-groups/log-group/$252Faws$252Flambda$252Fchurras-planner-prod-app
 const TableName = 'ChurrasPlanner'
 
 /**
@@ -47,13 +48,14 @@ async function middlewareAuth(req, res, next) {
   next()
 }
 
-app.post('/login', async (req, res) => {
-  const { username, password } = req.body
+async function handleLogin(req, res) {
+  console.log(req.body)
+  const { email, password } = req.body
 
   const { Item } = await dynamodb
     .get({
       TableName,
-      Key: { hashkey: username, sortkey: 'user' }
+      Key: { hashkey: email, sortkey: 'user' }
     })
     .promise()
 
@@ -69,7 +71,7 @@ app.post('/login', async (req, res) => {
   delete Item.password
 
   return res.json({ user: Item })
-})
+}
 
 async function handleGetEvents(req, res) {
   const query = {
@@ -105,41 +107,50 @@ async function handleCreateEvent(req, res) {
   return res.json(Item)
 }
 
-async function middlewareGetEvent(req, res, next) {
-  const { Item } = await dynamodb
-    .get({ TableName, Key: { hashkey: req.user.hashkey, sortkey: req.params.eventId } })
-    .promise()
+async function getEvent(hashkey, sortkey) {
+  const { Item } = await dynamodb.get({ TableName, Key: { hashkey, sortkey } }).promise()
 
-  if (!Item) {
+  return Item
+}
+
+async function middlewareGetEvent(req, res, next) {
+  const event = await getEvent(req.user.hashkey, req.params.eventId)
+
+  if (!event) {
     return res.status(404).json({ message: 'Event not found.' })
   }
 
-  req.event = Item
+  req.event = event
   next()
 }
 
-async function handleAddGuest(req, res) {
-  const { name, drink } = req.body
-  const uuid = Date.now()
-
-  const Item = {
-    hashkey: req.event.hashkey,
-    sortkey: `guest-${req.event.date}-${uuid}`,
-    name,
-    drink
-  }
-
-  return res.json({ Item, event: req.event })
+// return event
+async function handleGetEvent(req, res) {
+  return res.json({ event: req.event })
 }
 
+async function handleUpdateEvent(req, res) {
+  await dynamodb
+    .put({
+      TableName,
+      Item: req.body
+    })
+    .promise()
+
+  const event = await getEvent(req.user.hashkey, req.params.eventId)
+
+  return res.json({ event })
+}
+
+app.post('/login', handleLogin)
 app.use('*', middlewareAuth)
 app.get('/events', handleGetEvents)
 app.post('/events', handleCreateEvent)
 app.use('/events/:eventId*', middlewareGetEvent)
-app.post('/events/:eventId/guests', handleAddGuest)
+app.get('/events/:eventId', handleGetEvent)
+app.put('/events/:eventId', handleUpdateEvent)
 
 app.get('*', (req, res) => {
-  // res.status(404).render('404')
   return res.json({
     headers: req.headers,
     params: req.params,
