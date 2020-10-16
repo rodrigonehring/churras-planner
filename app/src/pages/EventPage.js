@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react'
-import { Button } from '@material-ui/core'
 import Layout from '../components/Layout'
 import EventCard from '../components/EventCard'
 import GuestsList from '../components/GuestsList'
@@ -35,7 +34,7 @@ export default function EventPage({ match, request }) {
       return window.alert('Nome obrigatório')
     }
 
-    const willDrink = window.confirm('Vai consumir bebidas alcoólicas? Será metade do valor caso positivo.')
+    const willDrink = window.confirm('Vai consumir bebidas?')
 
     await update({
       ...state.event,
@@ -58,20 +57,13 @@ export default function EventPage({ match, request }) {
   }
 
   return (
-    <Layout title="Agenda de Churras" maxWidth="md" loading={loading}>
+    <Layout title="Agenda de Churras" maxWidth="md" loading={loading} onActionAdd={handleAddGuest}>
       {state.event && (
         <>
           <EventCard {...state.event} biggerMode />
           <GuestsList {...state.event} handleRemoveGuest={handleRemoveGuest} handleUpdateGuest={handleUpdateGuest} />
         </>
       )}
-
-      <br />
-      <br />
-
-      <Button variant="outlined" color="primary" onClick={handleAddGuest}>
-        Adicionar convidado
-      </Button>
     </Layout>
   )
 }

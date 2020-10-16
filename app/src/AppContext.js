@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState, useCallback, useMemo } from 'react'
 
 const Context = createContext()
-const PREFIX = 'https://9pu4bdh4x8.execute-api.sa-east-1.amazonaws.com/prod'
-// const PREFIX = 'http://localhost:3000'
+// const PREFIX = 'https://9pu4bdh4x8.execute-api.sa-east-1.amazonaws.com/prod'
+// @todo: Colocar em process.env
+const PREFIX = 'http://localhost:3000'
 
 /**
  * helper pra poder usar com um import só

@@ -1,13 +1,11 @@
 import React from 'react'
-import { Container, makeStyles, Typography, CircularProgress } from '@material-ui/core'
+import { Container, makeStyles, Typography, Box, Button, CircularProgress } from '@material-ui/core'
 
 const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: '#f1f2f6',
     minHeight: '100vh',
     position: 'relative'
-    // display: 'flex',
-    // alignItems: 'center'
   },
   pattern: {
     opacity: 0.06,
@@ -34,11 +32,10 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center'
-  },
-  title: { padding: 64 }
+  }
 }))
 
-export default function Layout({ children, title, maxWidth = 'sm', loading }) {
+export default function Layout({ children, title, maxWidth = 'sm', loading, onActionAdd }) {
   const classes = useStyles()
 
   return (
@@ -49,9 +46,29 @@ export default function Layout({ children, title, maxWidth = 'sm', loading }) {
         </div>
       )}
       <div className={classes.pattern} />
-      <Typography variant="h4" color="primary" align="center" className={classes.title}>
-        {title}
-      </Typography>
+      <Box
+        component="header"
+        zIndex={2}
+        position="relative"
+        p={8}
+        flexDirection="column"
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Typography variant="h4" color="primary" align="center">
+          {title}
+        </Typography>
+
+        {onActionAdd && (
+          <Box pt={2}>
+            <Button color="primary" variant="outlined" onClick={onActionAdd}>
+              Adicionar
+            </Button>
+          </Box>
+        )}
+      </Box>
+
       <div className={classes.content}>
         <Container maxWidth={maxWidth}>{children}</Container>
       </div>

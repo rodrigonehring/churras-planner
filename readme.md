@@ -2,6 +2,14 @@
 
 - http://churras-planner.s3-website-sa-east-1.amazonaws.com/login
 
+### Coisas que faltaram:
+
+- [ ] Criar um component para renderizar o preço corretamento. Ex: R\$ 140,00;
+- [ ] Criar um dialog para adicionar um convidado;
+- [ ] Poder deletar um evento;
+- [ ] Poder editar um evento (date, title, desc etc..);
+- [ ] Melhorar o fundo;
+
 ## DynamoDB Single Table Entities
 
 ### User account

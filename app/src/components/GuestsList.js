@@ -10,6 +10,7 @@ import {
   Menu,
   MenuItem,
   Box,
+  Typography,
   Checkbox
 } from '@material-ui/core'
 import IconDrink from '@material-ui/icons/LocalBar'
@@ -72,6 +73,16 @@ export default function GuestsList({
   suggestedPayment
 }) {
   const classes = useStyles()
+
+  if (guests.length === 0) {
+    return (
+      <div className={classes.root}>
+        <Box p={4}>
+          <Typography>Nenhum convidado adicionado ainda D:</Typography>
+        </Box>
+      </div>
+    )
+  }
 
   return (
     <List className={classes.root}>

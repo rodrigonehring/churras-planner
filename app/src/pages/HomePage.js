@@ -5,6 +5,7 @@ import Layout from '../components/Layout'
 import DialogEvent from '../components/DialogEvent'
 
 export default function HomePage({ location, request, history }) {
+  const [dialogOpen, setDialogOpen] = useState(false)
   const [loading, setLoading] = useState(true)
   const [state, setState] = useState({ events: null })
 
@@ -18,9 +19,14 @@ export default function HomePage({ location, request, history }) {
     init()
   }, [location.key, request])
 
+  const handleCreate = async (values) => {
+    const { sortkey } = await request('/events', { method: 'post', body: values })
+    history.push(`/event/${sortkey}`)
+  }
+
   return (
-    <Layout title="Agenda de Churras" maxWidth="md" loading={loading}>
-      <DialogEvent />
+    <Layout title="Agenda de Churras" maxWidth="md" loading={loading} onActionAdd={() => setDialogOpen(true)}>
+      <DialogEvent open={dialogOpen} onClose={() => setDialogOpen(false)} handleCreate={handleCreate} />
       {state.events && (
         <Grid container spacing={2}>
           {state.events.map((i) => (
