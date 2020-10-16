@@ -1,19 +1,23 @@
 ### useful links
 
-- http://churras-planner.s3-website-sa-east-1.amazonaws.com/login
+@link http://churras-planner.s3-website-sa-east-1.amazonaws.com/login
 
 - Frontend com create-react-app:
 - - material-ui
 - - formik
 
 - Backend com serverless framework
-- - deploy no lambda
+- - lambda/api gateway
 - - express
 - - dynamodb single table design
 
+- CI - github actions
+- - deploy do frontend no s3
+- - deploy do backend com serverless framework
+
 - Obs: fiz uma versão fake de usuario e senha, com o propósito de mockar o comportamento. Não tem criação de usuários em tela; Não tem senha criptografada; Não é persistido a "sessão" com cookies;
   Logar com:
-- "email": "rodrigonehring@gmail.com",
+- "email": "john@doe.com",
 - "password": "123456"
 
 ### Coisas que faltaram:
