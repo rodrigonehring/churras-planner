@@ -30,7 +30,7 @@ export default function HomePage({ location, request, history }) {
       {state.events && (
         <Grid container spacing={2}>
           {state.events.map((i) => (
-            <Grid item xs={12} key={i.sortkey} sm={6} bgcolor="primary">
+            <Grid item xs={12} key={i.sortkey} sm={6}>
               <EventCard {...i} history={history} />
             </Grid>
           ))}
