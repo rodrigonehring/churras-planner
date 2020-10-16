@@ -16,7 +16,7 @@
 - "email": "john@doe.com",
 - "password": "123456"
 
-### Coisas que faltaram:
+### todo
 
 - [ ] Criar um component para renderizar o preço corretamento. Ex: R\$ 140,00;
 - [ ] Criar um dialog para adicionar um convidado;
