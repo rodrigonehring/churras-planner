@@ -2,6 +2,20 @@
 
 - http://churras-planner.s3-website-sa-east-1.amazonaws.com/login
 
+- Frontend com create-react-app:
+- - material-ui
+- - formik
+
+- Backend com serverless framework
+- - deploy no lambda
+- - express
+- - dynamodb single table design
+
+- Obs: fiz uma versão fake de usuario e senha, com o propósito de mockar o comportamento. Não tem criação de usuários em tela; Não tem senha criptografada; Não é persistido a "sessão" com cookies;
+  Logar com:
+- "email": "rodrigonehring@gmail.com",
+- "password": "123456"
+
 ### Coisas que faltaram:
 
 - [ ] Criar um component para renderizar o preço corretamento. Ex: R\$ 140,00;
@@ -9,6 +23,7 @@
 - [ ] Poder deletar um evento;
 - [ ] Poder editar um evento (date, title, desc etc..);
 - [ ] Melhorar o fundo;
+- [ ] testes no frontend, talvez com cypress, e colocar no CI;
 
 ## DynamoDB Single Table Entities
 
@@ -19,7 +34,7 @@
   hashkey: username
   sortkey: 'user'
 
-  password: simple crypt hash
+  password: full password without encrypt
 }
 ```
 
@@ -33,8 +48,6 @@
   date: DateISO
   title: string
   description: string
-  obs: string
-
   suggestedPayment: 10
   suggestedPaymentDrink: 20
 
