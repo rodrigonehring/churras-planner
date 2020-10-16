@@ -32,7 +32,7 @@ export default function EventCard({
 
   return (
     <Box
-      bgcolor="white"
+      style={{ background: '#fff' }} // override ButtonBase
       boxShadow={3}
       borderRadius={4}
       width="100%"
