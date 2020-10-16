@@ -14,7 +14,7 @@ async function handleGetEvents(req, res) {
 }
 
 async function handleCreateEvent(req, res) {
-  const { date, title, description, obs } = req.body
+  const { date, title, description, suggestedPayment, suggestedPaymentDrink } = req.body
 
   const Item = {
     hashkey: req.user.hashkey,
@@ -22,7 +22,8 @@ async function handleCreateEvent(req, res) {
     title,
     description,
     guests: [],
-    obs,
+    suggestedPayment,
+    suggestedPaymentDrink,
     date
   }
 
