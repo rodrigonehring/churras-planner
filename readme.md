@@ -1,7 +1,3 @@
-### useful links
-
-@link http://churras-planner.s3-website-sa-east-1.amazonaws.com/login
-
 - Frontend com create-react-app:
 - - material-ui
 - - formik
