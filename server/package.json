@@ -7,6 +7,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon --exec sls offline start --dontPrintOutput --noPrependStageInUrl",
+    "deploy": "yarn sls deploy",
     "test": "jest",
     "sls": "sls"
   },
