@@ -22,7 +22,13 @@ it('handleCreateEvent', async () => {
   })
 
   const json = jest.fn()
-  const body = { date: '2020-01-01', title: 'fancy title', description: '...' }
+  const body = {
+    date: '2020-01-01',
+    title: 'fancy title',
+    description: '...',
+    suggestedPayment: 10,
+    suggestedPaymentDrink: 40
+  }
   await eventController.handleCreateEvent({ user: { hashkey: 'fake-hashkey' }, body }, { json })
 
   const result = {
@@ -30,9 +36,10 @@ it('handleCreateEvent', async () => {
     description: '...',
     guests: [],
     hashkey: 'fake-hashkey',
-    obs: undefined,
     sortkey: 'event-2020-01-01-main',
-    title: 'fancy title'
+    title: 'fancy title',
+    suggestedPayment: 10,
+    suggestedPaymentDrink: 40
   }
 
   expect(dynamodb.put.mock.calls[0][0]).toStrictEqual({ TableName: 'ChurrasPlanner', Item: result })
