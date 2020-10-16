@@ -12,7 +12,7 @@ export default function EventPage({ match, request }) {
     const response = await request(`/events/${match.params.id}`)
     setState(response)
     setLoading(false)
-  }, [request])
+  }, [request, match.params.id])
 
   const update = useCallback(
     async (body) => {
@@ -21,7 +21,7 @@ export default function EventPage({ match, request }) {
       setState(response)
       setLoading(false)
     },
-    [request]
+    [request, match.params.id]
   )
 
   useEffect(() => {

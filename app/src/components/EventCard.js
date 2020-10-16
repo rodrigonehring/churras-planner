@@ -21,8 +21,6 @@ export default function EventCard({
 }) {
   const handleClick = () => history && history.push(`/event/${sortkey}`)
 
-  function sum(acc, curr) {}
-
   const total = useMemo(
     () =>
       guests.reduce(

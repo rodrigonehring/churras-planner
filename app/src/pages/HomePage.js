@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Grid, Typography } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import EventCard from '../components/EventCard'
 import Layout from '../components/Layout'
 import DialogEvent from '../components/DialogEvent'
